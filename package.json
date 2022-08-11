@@ -1,0 +1,79 @@
+{
+  "name": "node-js-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
+  "nyc": {
+    "all": false,
+    "include": [
+      "app/**"
+    ],
+    "exclude": [
+      "**/migrations/**",
+      "app/config/**"
+    ]
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node app/index.js",
+    "pretest": "npm run migrate-test:down && npm run migrate-test:up",
+    "test": "cross-env NODE_ENV=test nyc --require @babel/register --reporter=lcov --reporter=text --reporter=text-summary mocha --exit --recursive --timeout=150000 tests/**/*.js",
+    "posttest": "npm run migrate-test:down",
+    "migrate:up": "db-migrate up",
+    "migrate:down": "db-migrate down -c 100",
+    "migrate-test:up": "db-migrate up --config database.json -e test",
+    "migrate-test:down": "db-migrate down -c 100 --config database.json -e test",
+    "lint": "eslint . --ext .js ./",
+    "lint-fix": "eslint . --ext .js ./ --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lawrecks/node-js-template.git"
+  },
+  "author": "Anita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anita-igboh/node-js-template/issues"
+  },
+  "homepage": "https://github.com/anita-igboh/node-js-template#readme",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.2",
+    "helmet": "^3.23.3",
+    "mocha": "^9.1.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "pg-promise": "^10.4.4",
+    "prettier": "^2.5.1",
+    "supertest": "^2.0.1",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.16.7",
+    "@babel/core": "^7.16.7",
+    "@babel/eslint-parser": "^7.16.5",
+    "@babel/node": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/register": "^7.13.14",
+    "@babel/runtime": "^7.13.10",
+    "@types/helmet": "^4.0.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^3.4.1"
+  }
+}
