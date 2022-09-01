@@ -5,7 +5,11 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cors from 'cors';
+import express from 'express';
+import path from 'path';
 import routes from '../routes/v1';
+
+const dirname = path.resolve();
 
 const expressConfig = (app) => {
   const env = app.get('env');
@@ -13,6 +17,8 @@ const expressConfig = (app) => {
   logger.info('App is starting...');
   logger.info(`Environment is ${env}`);
 
+  app.use('/sfu', express.static(path.join(dirname, '/app/public')));
+  console.log('...', dirname);
   app.use(morgan('combined', { stream: logger.stream }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,11 +42,11 @@ const expressConfig = (app) => {
   app.use('/api/v1', routes);
 
   // catch 404 and forward to error handler
-  app.use((req, res, next) => {
-    const err = new Error('Route Not Found');
-    err.status = 404;
-    next(err);
-  });
+  // app.use((req, res, next) => {
+  //   const err = new Error('Route Not Found');
+  //   err.status = 404;
+  //   next(err);
+  // });
   // error handlers
 
   // development error handler

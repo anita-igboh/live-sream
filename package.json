@@ -27,7 +27,8 @@
     "migrate-test:up": "db-migrate up --config database.json -e test",
     "migrate-test:down": "db-migrate down -c 100 --config database.json -e test",
     "lint": "eslint . --ext .js ./",
-    "lint-fix": "eslint . --ext .js ./ --fix"
+    "lint-fix": "eslint . --ext .js ./ --fix",
+    "watch": "watchify app/public/index.js -o app/public/bundle.js -v"
   },
   "repository": {
     "type": "git",
@@ -51,12 +52,17 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.2",
     "helmet": "^3.23.3",
+    "httpolyglot": "^0.1.2",
+    "mediasoup": "^3.10.6",
+    "mediasoup-client": "^3.6.57",
     "mocha": "^9.1.4",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",
     "pg-promise": "^10.4.4",
     "prettier": "^2.5.1",
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1",
     "supertest": "^2.0.1",
     "winston": "^3.6.0"
   },
@@ -74,6 +80,7 @@
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-prettier": "^3.4.1"
+    "eslint-plugin-prettier": "^3.4.1",
+    "watchify": "^4.0.0"
   }
 }
